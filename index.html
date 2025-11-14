@@ -11,6 +11,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+			
+		<style>
+		/* Added 3‑column grid */
+		.features {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 2rem;
+		}
+
+		/* Optional responsive layout */
+		@media (max-width: 900px) {
+		.features {
+		grid-template-columns: repeat(2, 1fr);
+		}
+		}
+
+		@media (max-width: 600px) {
+		.features {
+		grid-template-columns: repeat(1, 1fr);
+		}
+		}
+		</style>
+
 	</head>
 	<body class="is-preload">
 
@@ -35,8 +58,8 @@
 				<!-- Intro -->
 					<section id="intro" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
-							<h1>REVALON Biocare</h1>
-							<p>where innovation meets integrity in healthcare. Guided by our tagline 
+							<h1>Welcome To REVALON Biocare</h1>
+							<p>We are a young company where innovation meets integrity in healthcare. Guided by our tagline 
 								Revival to Resilience, we are committed to delivering high-quality, 
 								evidence-based pharmaceutical solutions. Our mission is to restore health 
 								and empower lives with trusted, effective, and accessible therapies. 
@@ -58,24 +81,7 @@
 									<h3>Business Type</h3>
 									<p>Pharmaceutical Company</p>
 								</section>
-							</div>	
-
-					</section>
-					<section id="two" class="wrapper style3 fade-up">
-						<div class="inner">
-							<h2>Company Information</h2>
-							<div class="features">
-								<section>
-									<a href="#" class="image"><img src="images/gst.png" alt="" data-position="center center" /></a>
-									<h3>GST Number</h3>
-									<p>27ABLFR3528C1Z7</p>
-								</section>
-								<section>
-									<span class="icon solid major fa-lock"></span>
-									<h3>Business Type</h3>
-									<p>Pharmaceutical Company</p>
-								</section>
-								<section>
+										<section>
 									<span class="icon solid major fa-cog"></span>
 									<h3>Year Of Establishment</h3>
 									<p>2025</p>
@@ -90,13 +96,8 @@
 									<h3>Number Of Products</h3>
 									<p>5</p>
 								</section>
-							</div>
-							<!--<ul class="actions">
-								<li><a href="generic.html" class="button">Learn more</a></li>
-							</ul>-->
-						</div>
-					</section>	
-
+							</div>	
+					</section>
 				<!-- One -->
 					<section id="one" class="wrapper style2 spotlights">
 						<section>
@@ -105,7 +106,8 @@
 								<div class="inner">
 									<h2>Dr Sachin Bidwai </h2>
 									<span>General Physician<br />
-									B.A.M.S , P.G.D.G.M<br />
+									Bachlors In Ayurvedic Medicines(B.A.M.S)<br />
+									Post Graduate Diploma In Generetic Medicines(P.G.D.G.M)<br />
 									A distinguished General Physician with over 15 years of clinical experience and a strong entrepreneurial vision<br />
 									</span>								
 									<!--<ul class="actions">
@@ -120,7 +122,7 @@
 								<div class="inner">
 									<h2>Mr. Durganand Pathak</h2>
 									<span>Marketing Expert<br />
-									M Pharama-Pharmacology <br />									
+									Masters in Pharamacology(M Pharma) <br />									
 									A dedicated professional with 15 years of strong expertise in Clinical Research and pharmaceutical marketing.<br />
 									</span>	
 									<!--<ul class="actions">
@@ -134,7 +136,7 @@
 							<div class="content">
 								<div class="inner">
 									<h2>Mrs Sushama Delmade</h2>
-									<span>B.Sc-Computers<br />
+									<span>Bachlors In Computer Science(B.Sc)<br />
 									An accomplished financial consultant with more than 10 years of expriece in investing and fund raising
 									</span>	
 									<!--<ul class="actions">
