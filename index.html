@@ -1,152 +1,301 @@
-<!DOCTYPE HTML>
+<!--<!DOCTYPE HTML>
+
+    Hyperspace by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head>
-    <title>REVALON Biocare</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<head>
+		<title>REVALON Biocare</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-    <!-- EmailJS -->
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script>
-        (function(){
-            emailjs.init("YOUR_PUBLIC_KEY"); /* Insert your EmailJS Public Key */
-        })();
-    </script>
+        <style>
+            /* Slideshow CSS */
+            .slideshow-container {
+                width: 100%;
+                height: 400px;
+                position: relative;
+                overflow: hidden;
+            }
+            .slide {
+                display: none;
+                width: 100%;
+                height: 100%;
+            }
+            .slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .fade {
+                animation: fadeEffect 1.5s ease-in-out;
+            }
+            @keyframes fadeEffect {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+        </style>
+	</head>
 
-    <style>
-        /* Slideshow CSS */
-        .slideshow-container {
-            width: 100%;
-            height: 400px;
-            position: relative;
-            overflow: hidden;
-        }
-        .slide {
-            display: none;
-            width: 100%;
-            height: 100%;
-        }
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .fade {
-            animation: fadeEffect 1.5s ease-in-out;
-        }
-        @keyframes fadeEffect {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
-</head>
-<body class="is-preload">
+	<body class="is-preload">
 
-    <!-- Slideshow -->
-    <div class="slideshow-container">
-        <div class="slide fade"><img src="images/sachinbidwai.jpeg"></div>
-        <div class="slide fade"><img src="images/pathak.png"></div>
-        <div class="slide fade"><img src="images/Sushama.png"></div>
-    </div>
-
-    <!-- Sidebar -->
-    <section id="sidebar">
-        <div class="inner">
-            <nav>
-                <ul>
-                    <li><a href="#intro">Welcome</a></li>
-                    <li><a href="#one">Who we are</a></li>
-                    <li><a href="#two">What we do</a></li>
-                    <li><a href="#three">Get in touch</a></li>
-                </ul>
-            </nav>
-        </div>
-    </section>
-
-    <!-- Wrapper -->
-    <div id="wrapper">
-
-        <!-- Intro -->
-        <section id="intro" class="wrapper style1 fullscreen fade-up">
-            <div class="inner">
-                <h1>Welcome To REVALON Biocare</h1>
-                <p>We are a young company where innovation meets integrity in healthcare...</p>
+        <!-- Slideshow at the top -->
+        <div class="slideshow-container">
+            <div class="slide fade">
+                <img src="images/sachinbidwai.jpeg" alt="">
             </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="three" class="wrapper style1 fade-up">
-            <div class="inner">
-                <h2>Get in touch</h2>
-                <div class="split style1">
-                    <section>
-                        <form id="contactForm">
-                            <div class="fields">
-                                <div class="field half">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name" required />
-                                </div>
-                                <div class="field half">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" required />
-                                </div>
-                                <div class="field">
-                                    <label for="message">Message</label>
-                                    <textarea id="message" rows="5" required></textarea>
-                                </div>
-                            </div>
-                            <ul class="actions">
-                                <li><button type="submit" class="button submit">Send Message</button></li>
-                            </ul>
-                        </form>
-                    </section>
-                </div>
+            <div class="slide fade">
+                <img src="images/pathak.png" alt="">
             </div>
-        </section>
-
-    </div>
-
-    <!-- Footer -->
-    <footer id="footer" class="wrapper style1-alt">
-        <div class="inner">
-            <ul class="menu">
-                <li>&copy; All rights reserved.</li>
-            </ul>
+            <div class="slide fade">
+                <img src="images/Sushama.png" alt="">
+            </div>
         </div>
-    </footer>
 
-    <!-- Slideshow Script -->
-    <script>
-    let slideIndex = 0;
-    showSlides();
-    function showSlides() {
-        let slides = document.getElementsByClassName("slide");
-        for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-        slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1; }
-        slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 3000);
-    }
-    </script>
+		<!-- Sidebar -->
+			<section id="sidebar">
+				<div class="inner">
+					<nav>
+						<ul>
+							<li><a href="#intro">Welcome</a></li>
+							<li><a href="#one">Who we are</a></li>
+							<li><a href="#two">What we do</a></li>
+							<li><a href="#three">Get in touch</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
 
-    <!-- EmailJS Form Script -->
-    <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-            from_name: document.getElementById('name').value,
-            from_email: document.getElementById('email').value,
-            message: document.getElementById('message').value
-        }).then(function() {
-            alert("Message sent successfully!");
-        }, function() {
-            alert("Failed to send message.");
-        });
-    });
-    </script>
+				<!-- Intro -->
+					<section id="intro" class="wrapper style1 fullscreen fade-up">
+						<div class="inner">
+							<h1>Welcome To REVALON Biocare</h1>
+							<p>We are a young company where innovation meets integrity in healthcare. Guided by our tagline 
+								Revival to Resilience, we are committed to delivering high-quality, 
+								evidence-based pharmaceutical solutions. Our mission is to restore health 
+								and empower lives with trusted, effective, and accessible therapies. 
+								We don’t just heal we build strength for tomorrow </p>
+						</div>
 
-</body>
+						<div class="inner">
+							<h2>Company Information</h2>
+							<div class="features">
+								<section>
+									<span class="icon solid major fa-code"></span>
+									<h3>GST Number</h3>
+									<p>27ABLFR3528C1Z7</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-lock"></span>
+									<h3>Business Type</h3>
+									<p>Pharmaceutical Company</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-cog"></span>
+									<h3>Year Of Establishment</h3>
+									<p>2025</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-desktop"></span>
+									<h3>Number Of Employees</h3>
+									<p>10</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-link"></span>
+									<h3>Number Of Products</h3>
+									<p>5</p>
+								</section>
+							</div>	
+					</section>
+
+				<!-- One -->
+					<section id="one" class="wrapper style2 spotlights">
+						<section>
+							<a href="#" class="image"><img src="images/sachinbidwai.jpeg" alt="" data-position="center center" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>Dr Sachin Bidwai</h2>
+									<span>General Physician<br />
+									Bachelor Of Ayurveda Medicine and Surgery (B.A.M.S)<br />
+									Diplomat in General Medicine - Internal Medicine(D.G.M)<br />
+								    Fundamental Critical Care Support(F.C.C.S) <br />
+									Advanced Certificate in Diabetes Mellitus<br />
+									A distinguished General Physician with over 15 years of clinical experience and a strong entrepreneurial vision<br />
+									</span>
+								</div>
+							</div>
+						</section>
+
+						<section>
+							<a href="#" class="image"><img src="images/pathak.png" alt="" data-position="top center" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>Mr. Durganand Pathak</h2>
+									<span>Marketing Expert<br />
+									Masters in Pharamacology(M Pharma) <br />									
+									A dedicated professional with 15 years of strong expertise in Clinical Research and pharmaceutical marketing.<br />
+									</span>
+								</div>
+							</div>
+						</section>
+
+						<section>
+							<a href="#" class="image"><img src="images/Sushama.png" alt="" data-position="25% 25%" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>Mrs Sushama Delmade</h2>
+									<span>Bachlors In Computer Science(B.Sc)<br />
+									An accomplished financial consultant with more than 10 years of expriece in investing and fund raising
+									</span>
+								</div>
+							</div>
+						</section>
+					</section>
+
+				<!-- Two -->
+					<section id="two" class="wrapper style3 fade-up">
+						<div class="inner">
+							<h2>What we do</h2>
+							<p>We restore health and empower lives with trusted, effective, and accessible therapies. We don’t just heal we build strength for tomorrow. Below are the products we offer </p>
+							<div class="features">
+								<section>
+									<span class="icon solid major fa-code"></span>
+									<h3>Esogred DSR</h3>
+									<p>Is used to treat gastroesophageal reflux disease (GERD) and other gastrointestinal disorders involving acid reflux and motility issues</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-lock"></span>
+									<h3>Fluqik</h3>
+									<p>is FDA-approved for the treatment and prevention of acute, uncomplicated influenza A and B in individuals aged 2 weeks and older.</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-cog"></span>
+									<h3>Vitri D3</h3>
+									<p>is commonly used to treat or prevent Vitamin D deficiency, osteoporosis, and certain autoimmune conditions.</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-desktop"></span>
+									<h3>Argivion</h3>
+									<p>is an amino acid supplement used to improve cardiovascular health, erectile dysfunction, and enhance exercise performance</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-link"></span>
+									<h3>Luprest</h3>
+									<p>is used in various gynecological conditions, including endometriosis, threatened miscarriage, and luteal phase support in infertility</p>
+								</section>
+								<section>
+									<span class="icon major fa-gem"></span>
+									<h3>Coming soon......</h3>
+									<p>..........</p>
+								</section>
+							</div>
+							<ul class="actions">
+								<li><a href="generic.html" class="button">Learn more</a></li>
+							</ul>
+						</div>
+					</section>
+
+				<!-- Three -->
+					<section id="three" class="wrapper style1 fade-up">
+						<div class="inner">
+							<h2>Get in touch</h2>
+							<p></p>
+							<div class="split style1">
+								<section>
+									<form method="post" action="#">
+										<div class="fields">
+											<div class="field half">
+												<label for="name">Name</label>
+												<input type="text" name="name" id="name" />
+											</div>
+											<div class="field half">
+												<label for="email">Email</label>
+												<input type="text" name="email" id="email" />
+											</div>
+											<div class="field">
+												<label for="message">Message</label>
+												<textarea name="message" id="message" rows="5"></textarea>
+											</div>
+										</div>
+										<ul class="actions">
+											<li><a href="" class="button submit">Send Message</a></li>
+										</ul>
+									</form>
+								</section>
+								<section>
+									<ul class="contact">
+										<li>
+											<h3>Address</h3>
+											<span>102, Pristine Square, Shankar Kalate nagar<br />
+											Wakad, Pune 411057,Maharashtra<br />
+											India</span>
+										</li>
+										<li>
+											<h3>Email</h3>
+											<a href="#">relalonbiocare@gmail.com</a>
+										</li>
+										<li>
+											<h3>Phone</h3>
+											<span>+91-9673317600<br />
+											+91-9730736936</span>
+										</li>
+										<li>
+											<h3>Social</h3>
+											<ul class="icons">
+												<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+												<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+												<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+												<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+												<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+											</ul>
+										</li>
+									</ul>
+								</section>
+							</div>
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper style1-alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+        <!-- Slideshow Script -->
+        <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }    
+            slides[slideIndex - 1].style.display = "block";  
+            setTimeout(showSlides, 3000);
+        }
+        </script>
+
+	</body>
 </html>
