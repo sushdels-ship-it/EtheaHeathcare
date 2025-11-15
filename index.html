@@ -208,11 +208,12 @@
 										<div class="fields">
 											<div class="field half">
 												<label for="name">Name</label>
-												<input type="text" name="name" id="name" required />
+												<!-- name attributes changed to match EmailJS template variables -->
+												<input type="text" name="from_name" id="name" required />
 											</div>
 											<div class="field half">
 												<label for="email">Email</label>
-												<input type="email" name="email" id="email" required />
+												<input type="email" name="from_email" id="email" required />
 											</div>
 											<div class="field">
 												<label for="message">Message</label>
@@ -220,7 +221,7 @@
 											</div>
 										</div>
 										<ul class="actions">
-											<li><button type="submit" class="button submit">Send Message</button></li>
+											<li><button type="submit" id="submitBtn" class="button submit">Send Message</button></li>
 										</ul>
 									</form>
 
@@ -298,26 +299,51 @@
 		<!-- EmailJS SDK -->
 		<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 		<script>
-			emailjs.init("XYHm52Ojv9AOrZ36t");  // Your PUBLIC KEY
+			// Initialize EmailJS with your PUBLIC KEY (leave as-is if this is your public key)
+			// If you have a different public key, replace "XYHm52Ojv9AOrZ36t" with your actual key.
+			// Make sure the domain you're testing from (http://localhost or yoursite.com) is added to EmailJS Allowed Domains.
+			(function(){
+				if (typeof emailjs === 'object' && typeof emailjs.init === 'function') {
+					emailjs.init("4mt2QyKIMrxc1l9hS");
+					console.log('EmailJS initialized.');
+				} else {
+					console.warn('EmailJS SDK not loaded yet.');
+				}
+			})();
 		</script>
 
 		<!-- EmailJS Form Script -->
 		<script>
-		document.getElementById('contactForm').addEventListener('submit', function(e) {
-			e.preventDefault();
+		(function() {
+			const form = document.getElementById('contactForm');
+			const submitBtn = document.getElementById('submitBtn');
 
-			emailjs.send("service_0raocfi", "template_0xepm2f", {
-				from_name: document.getElementById('name').value,
-				from_email: document.getElementById('email').value,
-				message: document.getElementById('message').value
-			})
-			.then(function() {
-				alert("Message sent successfully!");
-			}, function(error) {
-				alert("Failed to send message.");
-				console.error(error);
+			form.addEventListener('submit', function(e) {
+				e.preventDefault();
+
+				// UI feedback
+				submitBtn.disabled = true;
+				const originalText = submitBtn.textContent;
+				submitBtn.textContent = 'Sending...';
+
+				// Use sendForm so the form's name attributes are used directly.
+				// Replace 'service_0raocfi' and 'template_0xepm2f' with your actual IDs if different.
+				emailjs.sendForm('service_0raocfi', 'template_0xepm2f', this)
+					.then(function(response) {
+						console.log('EmailJS response:', response);
+						alert('Message sent successfully!');
+						form.reset();
+					}, function(error) {
+						console.error('EmailJS error:', error);
+						// Provide more informative message
+						alert('Failed to send message. Check console and Network tab for details.');
+					})
+					.finally(function() {
+						submitBtn.disabled = false;
+						submitBtn.textContent = originalText;
+					});
 			});
-		});
+		})();
 		</script>
 
 	</body>
