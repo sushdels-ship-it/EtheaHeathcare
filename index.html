@@ -32,6 +32,66 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        /* -------------------------------------------- */
+        /* Company Information – 6 Columns Grid */
+        /* -------------------------------------------- */
+        div.features.company-info {
+            display: grid !important;
+            grid-template-columns: repeat(6, 1fr) !important;
+            /*grid-template-columns: 200px 200px 200px;*/
+            gap: 20px;
+            text-align: center;
+        }
+        .company-info .info-box {
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 15px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .company-info .empty-box {
+            border: none;      /* last column should look empty */
+            background: none;
+        }
+
+        div.features.company-info section {
+            padding: 5px;
+        }
+
+        div.features.company-info .icon {
+            font-size: 1.6rem !important;
+            margin-bottom: 6px;
+        }
+
+        div.features.company-info h3 {
+            font-size: 0.9rem !important;
+            margin: 4px 0;
+        }
+
+        div.features.company-info p {
+            font-size: 0.8rem !important;
+            margin: 0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            div.features.company-info {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            div.features.company-info {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            div.features.company-info {
+                grid-template-columns: repeat(1, 1fr) !important;
+            }
+        }
     </style>
 </head>
 
@@ -60,6 +120,7 @@
 
     <!-- Wrapper -->
     <div id="wrapper">
+
         <!-- Intro Section -->
         <section id="intro" class="wrapper style1 fullscreen fade-up">
             <div class="inner">
@@ -70,12 +131,13 @@
 
             <div class="inner">
                 <h2>Company Information</h2>
-                <div class="features">
+                <!-- 6-column grid with last one empty -->
                     <section><span class="icon solid major fa-code"></span><h3>GST Number</h3><p>27ABLFR3528C1Z7</p></section>
                     <section><span class="icon solid major fa-lock"></span><h3>Business Type</h3><p>Pharmaceutical Company</p></section>
                     <section><span class="icon solid major fa-cog"></span><h3>Year Of Establishment</h3><p>2025</p></section>
                     <section><span class="icon solid major fa-desktop"></span><h3>Number Of Employees</h3><p>10</p></section>
                     <section><span class="icon solid major fa-link"></span><h3>Number Of Products</h3><p>5</p></section>
+                    <section></section> <!-- empty column -->
                 </div>
             </div>
         </section>
@@ -183,7 +245,7 @@
     }
     </script>
 
-    <!-- Backend email submission: POSTs to /api/send-email -->
+    <!-- Backend email submission -->
     <script>
     document.getElementById('contactForm').addEventListener('submit', async function(e){
         e.preventDefault();
@@ -208,11 +270,9 @@
                 alert('Message sent successfully!');
                 document.getElementById('contactForm').reset();
             } else {
-                console.error(data);
                 alert('Failed to send message: ' + (data.error || res.statusText));
             }
         } catch (err) {
-            console.error(err);
             alert('Failed to send message. Check console for details.');
         } finally {
             submitBtn.disabled = false;
