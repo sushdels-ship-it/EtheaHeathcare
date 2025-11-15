@@ -36,9 +36,10 @@
         /* -------------------------------------------- */
         /* Company Information – 6 Columns Grid */
         /* -------------------------------------------- */
-        div.features.company-info {
+        div.features {
             display: grid !important;
-            grid-template-columns: repeat(6, 1fr) !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+             grid-template-rows: repeat(2, auto)!important;
             /*grid-template-columns: 200px 200px 200px;*/
             gap: 20px;
             text-align: center;
@@ -66,7 +67,7 @@
 
         div.features.company-info h3 {
             font-size: 0.9rem !important;
-            margin: 4px 0;
+            margin: 2px 0;
         }
 
         div.features.company-info p {
@@ -131,8 +132,9 @@
 
             <div class="inner">
                 <h2>Company Information</h2>
+                 <div class="features">
                 <!-- 6-column grid with last one empty -->
-                    <section><span class="icon solid major fa-code"></span><h3>GST Number</h3><p>27ABLFR3528C1Z7</p></section>
+                    <section><span class="icon solid major fa-code"></span><h3>GST Number1</h3><p>27ABLFR3528C1Z7</p></section>
                     <section><span class="icon solid major fa-lock"></span><h3>Business Type</h3><p>Pharmaceutical Company</p></section>
                     <section><span class="icon solid major fa-cog"></span><h3>Year Of Establishment</h3><p>2025</p></section>
                     <section><span class="icon solid major fa-desktop"></span><h3>Number Of Employees</h3><p>10</p></section>
