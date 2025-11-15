@@ -9,6 +9,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Temporary request logger to help debug browser submissions
+app.use((req, res, next) => {
+  try {
+    console.log('[req]', req.method, req.path, req.ip);
+    if (req.path && req.path.startsWith('/api')) {
+      // body may be empty for GET requests
+      console.log('[req body]', JSON.stringify(req.body || {}));
+    }
+  } catch (e) {
+    console.log('[req logger error]', e && e.message);
+  }
+  next();
+});
+
 // Serve static files (the static site) from repository root
 app.use(express.static(path.join(__dirname, '/')));
 
