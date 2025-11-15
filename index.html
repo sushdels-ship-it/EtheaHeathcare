@@ -11,9 +11,10 @@
         /* Slideshow CSS */
         .slideshow-container {
             width: 100%;
-            height: 200px;
+            height: 400px;
             position: relative;
             overflow: hidden;
+            margin-top: 10px;
         }
         .slide {
             display: none;
@@ -26,7 +27,7 @@
             object-fit: cover;
         }
         .fade {
-            animation: fadeEffect 2s ease-in-out;
+            animation: fadeEffect 1s ease-in-out;
         }
         @keyframes fadeEffect {
             from { opacity: 0; }
@@ -34,69 +35,144 @@
         }
 
         /* -------------------------------------------- */
-        /* Company Information – 6 Columns Grid */
-        /* -------------------------------------------- */
-        div.features {
-            display: grid !important;
-            grid-template-columns: repeat(3, 1fr) !important;
-             grid-template-rows: repeat(2, auto)!important;
-            /*grid-template-columns: 200px 200px 200px;*/
-            gap: 20px;
+        /* Company Information – 3 Columns x 2 Rows Grid */
+        .company-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, auto);
+            gap: 28px;
+            align-items: start;
+            margin-top: 12px;
+        }
+
+        .company-info-grid .info-card {
+            position: relative;
+            padding: 26px 18px 48px; /* extra bottom space for the overlapping icon */
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.04);
+            color: #fff;
             text-align: center;
-        }
-        .company-info .info-box {
-            border: 1px solid rgba(255,255,255,0.4);
-            padding: 15px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.05);
+            min-height: 5px;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
         }
 
-        .company-info .empty-box {
-            border: none;      /* last column should look empty */
-            background: none;
+        .company-info-grid .info-card h3 {
+            font-size: 0.85rem;
+            margin: 6px 0 8px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            text-transform: none;
         }
-
-        div.features.company-info section {
-            padding: 5px;
-        }
-
-        div.features.company-info .icon {
-            font-size: 1.6rem !important;
-            margin-bottom: 6px;
-        }
-
-        div.features.company-info h3 {
-            font-size: 0.9rem !important;
-            margin: 2px 0;
-        }
-
-        div.features.company-info p {
-            font-size: 0.8rem !important;
+        .company-info-grid .info-card p {
             margin: 0;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.85);
+            font-weight: 500;
+        }
+
+        .company-info-grid .info-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -22px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b2fb6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            border: 4px solid rgba(255,255,255,0.06);
+            font-size: 1.2rem;
+        }
+
+        .company-info-grid .empty-cell {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+            min-height: 0;
+        }
+
+        /* -------------------------------------------- */
+        /* Features grid: 3 columns x 2 rows on wide screens (2x3 layout) */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 18px;
+        }
+        .feature {
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 6px 14px rgba(20,30,60,0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #222;
+        }
+        .feature .image {
+            display:block;
+            width:100%;
+            height:160px;
+            overflow:hidden;
+            border-radius:6px;
+            background:#fafafa;
+        }
+        .feature .image img {
+            width:100%;
+            height:100%;
+            object-fit:contain;
+            display:block;
+        }
+        .feature h3 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: #111;
+        }
+        .feature .short {
+            margin: 0;
+            font-weight:600;
+            color:#1061d6;
+        }
+        .feature p {
+            margin: 0;
+            color:#444;
+            font-size: 0.95rem;
         }
 
         /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            div.features.company-info {
-                grid-template-columns: repeat(3, 1fr) !important;
-            }
+        @media (max-width: 900px){
+            .features { grid-template-columns: repeat(2, 1fr); }
+            .company-info-grid { grid-template-columns: repeat(3, 1fr); }
         }
-
-        @media (max-width: 768px) {
-            div.features.company-info {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
+        @media (max-width: 768px){
+            .company-info-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
-        @media (max-width: 480px) {
-            div.features.company-info {
-                grid-template-columns: repeat(1, 1fr) !important;
-            }
+        @media (max-width: 560px){
+            .features { grid-template-columns: 1fr; }
+            .feature .image{ height:220px; }
+            .company-info-grid { grid-template-columns: 1fr; }
+            .company-info-grid .info-icon { bottom: -18px; width: 48px; height: 48px; }
         }
     </style>
 </head>
 
 <body class="is-preload">
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="title">Revalon Biocare</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="generic.html" class="active">Product Details</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <!-- Slideshow at the top -->
     <div class="slideshow-container">
@@ -126,20 +202,45 @@
         <section id="intro" class="wrapper style1 fullscreen fade-up">
             <div class="inner">
                 <h1>Welcome To REVALON Biocare</h1>
-                <p>We are a young company where innovation meets integrity in healthcare. Guided by our tagline 
+                <p>We are a young company where innovation meets integrity in healthcare. Guided by our tagline
                     Revival to Resilience, we deliver high-quality, evidence-based pharmaceutical solutions.</p>
             </div>
-
             <div class="inner">
                 <h2>Company Information</h2>
-                 <div class="features">
-                <!-- 6-column grid with last one empty -->
-                    <section><span class="icon solid major fa-code"></span><h3>GST Number1</h3><p>27ABLFR3528C1Z7</p></section>
-                    <section><span class="icon solid major fa-lock"></span><h3>Business Type</h3><p>Pharmaceutical Company</p></section>
-                    <section><span class="icon solid major fa-cog"></span><h3>Year Of Establishment</h3><p>2025</p></section>
-                    <section><span class="icon solid major fa-desktop"></span><h3>Number Of Employees</h3><p>10</p></section>
-                    <section><span class="icon solid major fa-link"></span><h3>Number Of Products</h3><p>5</p></section>
-                    <section></section> <!-- empty column -->
+                <!-- 3 columns x 2 rows grid (6 cells). Each info cell uses .info-card; last cell is empty -->
+                <div class="company-info-grid" role="table" aria-label="Company information table">
+                    <div class="info-card" role="row">
+                        <h3>GST Number</h3>
+                        <p>27ABLFR3528C1Z7</p>
+                        <div class="info-icon" aria-hidden="true"><span class="fa fa-code"></span></div>
+                    </div>
+
+                    <div class="info-card" role="row">
+                        <h3>Business Type</h3>
+                        <p>Pharmaceutical Company</p>
+                        <div class="info-icon" aria-hidden="true"><span class="fa fa-lock"></span></div>
+                    </div>
+
+                    <div class="info-card" role="row">
+                        <h3>Year Of Establishment</h3>
+                        <p>2025</p>
+                        <div class="info-icon" aria-hidden="true"><span class="fa fa-cog"></span></div>
+                    </div>
+
+                    <div class="info-card" role="row">
+                        <h3>Number Of Employees</h3>
+                        <p>10</p>
+                        <div class="info-icon" aria-hidden="true"><span class="fa fa-desktop"></span></div>
+                    </div>
+
+                    <div class="info-card" role="row">
+                        <h3>Number Of Products</h3>
+                        <p>5</p>
+                        <div class="info-icon" aria-hidden="true"><span class="fa fa-link"></span></div>
+                    </div>
+
+                    <!-- Sixth cell left empty to form a 3x2 grid like your design -->
+                    <div class="empty-cell" role="presentation" aria-hidden="true"></div>
                 </div>
             </div>
         </section>
@@ -148,18 +249,36 @@
         <section id="one" class="wrapper style2 spotlights">
             <section>
                 <a href="#" class="image"><img src="images/sachinbidwai.jpeg" alt="" /></a>
-                <div class="content"><div class="inner"><h2>Dr Sachin Bidwai</h2>
-                <span>General Physician, B.A.M.S, Diplomat in General Medicine (D.G.M), Fundamental Critical Care Support (F.C.C.S), Advanced Certificate in Diabetes Mellitus</span></div></div>
+                <div class="content"><div class="inner">
+                    <h2>Dr Sachin Bidwai</h2>
+                    <span>General Physician<br><br>
+                        Bachelor of Ayurveda Medicine and Surgery (B.A.M.S)<br>
+                        Diplomat in General Medicine (D.G.M)<br>
+                        Fundamental Critical Care Support (F.C.C.S)<br>
+                        Advanced Certificate in Diabetes Mellitus<br><br>
+                        A distinguished General Physician with over 15+ years of clinical experience and a strong entrepreneurial vision
+                    </span>
+                </div>
+            </div>
             </section>
             <section>
                 <a href="#" class="image"><img src="images/pathak.png" alt="" /></a>
-                <div class="content"><div class="inner"><h2>Mr. Durganand Pathak</h2>
-                <span>Marketing Expert, Masters in Pharmacology (M.Pharma)</span></div></div>
+                <div class="content"><div class="inner">
+                <h2>Mr. Durganand Pathak</h2>
+                <span>
+                    Marketing Expert<br><br>
+                    Masters in Pharmacology (M.Pharma)<br><br>
+                    A dedicated professional with 15+ years of strong expertise in Clinical Research and pharmaceutical marketing<br>
+                </span></div></div>
             </section>
             <section>
                 <a href="#" class="image"><img src="images/Sushama.png" alt="" /></a>
-                <div class="content"><div class="inner"><h2>Mrs Sushama Delmade</h2>
-                <span>B.Sc Computer Science, finance enthusiast with 15+ years experience in investing and fundraising</span></div></div>
+                <div class="content"><div class="inner">
+                <h2>Mrs Sushama Delmade</h2>
+                <span>
+                    Financial Planner <br><br>
+                    Bachlors in Computer Science(B.Sc)<br>
+                    Finance enthusiast with 10+ years experience in investing and fund raising</span></div></div>
             </section>
         </section>
 
@@ -167,15 +286,58 @@
         <section id="two" class="wrapper style3 fade-up">
             <div class="inner">
                 <h2>What we do</h2>
-                <p>We restore health and empower lives with trusted, effective, and accessible therapies.</p>
-                <div class="features">
-                    <section><span class="icon solid major fa-code"></span><h3>Esogred DSR</h3><p>Treats GERD and acid reflux disorders.</p></section>
-                    <section><span class="icon solid major fa-lock"></span><h3>Fluqik</h3><p>FDA-approved flu treatment for Influenza A & B.</p></section>
-                    <section><span class="icon solid major fa-cog"></span><h3>Vitri D3</h3><p>Supports Vitamin D deficiency and bone health.</p></section>
-                    <section><span class="icon solid major fa-desktop"></span><h3>Argivion</h3><p>Improves cardiovascular health & performance.</p></section>
-                    <section><span class="icon solid major fa-link"></span><h3>Luprest</h3><p>Used in gynecological conditions & fertility support.</p></section>
-                    <section><span class="icon major fa-gem"></span><h3>Coming soon......</h3><p>More products on the way.</p></section>
+                <p class="lead">We restore health and empower lives with trusted, effective, and accessible therapies.</p>
+
+                <div class="features" role="list" aria-label="Products and therapies (3 columns by 2 rows)">
+                    <!-- 1 -->
+                    <article class="feature" role="listitem">
+                        <a href="#" class="image"><img src="images/esogreddsr.png" alt="Esogred DSR" /></a>
+                        <h3>Esogred DSR</h3>
+                        <p class="short">Esomeprazole 40mg &amp; Domperidone 30mg</p>
+                        <p>A systematic review and meta-analysis of randomized controlled trials indicated that combining domperidone with proton pump inhibitors (PPIs) like esomeprazole improved GERD symptoms more effectively than PPIs alone.</p>
+                    </article>
+
+                    <!-- 2 -->
+                    <article class="feature" role="listitem">
+                        <a href="#" class="image"><img src="images/fluqik.png" alt="Fluqik" /></a>
+                        <h3>Fluqik</h3>
+                        <p class="short">Oseltamivir 75mg</p>
+                        <p>Influenza Treatment: A meta-analysis involving over 100,000 patients demonstrated that oseltamivir significantly reduced the duration of fever and influenza-like symptoms. It also decreased hospitalization rates and the need for antibiotics.</p>
+                    </article>
+
+                    <!-- 3 -->
+                    <article class="feature" role="listitem">
+                        <a href="#" class="image"><img src="images/vitrid3.png" alt="VitriD3" /></a>
+                        <h3>VitriD3</h3>
+                        <p class="short">Cholecalciferol 60,000 IU Nano Shots</p>
+                        <p>Supplementation with Vitamin D has been shown to benefit individuals with hypertension, particularly those with a deficiency.</p>
+                    </article>
+
+                    <!-- 4 -->
+                    <article class="feature" role="listitem">
+                        <a href="#" class="image"><img src="images/argivon.png" alt="Argivon" /></a>
+                        <h3>Argivon</h3>
+                        <p class="short">L-Arginine 5gm with Zinc &amp; Folic Acid</p>
+                        <p>Erectile Dysfunction: A multicenter, double-blind, randomized, placebo-controlled trial demonstrated that high-dose L-Arginine supplementation improved erectile function in men with vasculogenic erectile dysfunction. Blood Pressure: L-Arginine supplementation has been associated with reductions in blood pressure, particularly in individuals with hypertension.</p>
+                    </article>
+
+                    <!-- 5 -->
+                    <article class="feature" role="listitem">
+                        <a href="#" class="image"><img src="images/luprest.png" alt="Luprest" /></a>
+                        <h3>Luprest</h3>
+                        <p class="short">Dydrogesterone 10mg</p>
+                        <p>Endometriosis: Studies have shown that dydrogesterone significantly reduces dysmenorrhea and pelvic pain in women with endometriosis. Threatened Miscarriage: A systematic review indicated that dydrogesterone reduces the odds of miscarriage in women experiencing threatened abortion.</p>
+                    </article>
+
+                    <!-- 6 (placeholder) -->
+                    <article class="feature" role="listitem">
+                        <a href="#" class="image"><img src="images/comingsoon.png" alt="Coming soon" /></a>
+                        <h3>More coming soon</h3>
+                        <p class="short">New products &amp; therapies</p>
+                        <p>We're continuously expanding our portfolio with research-backed therapies to meet diverse clinical needs. Check back for updates and new releases.</p>
+                    </article>
                 </div>
+
                 <ul class="actions"><li><a href="generic.html" class="button">Learn more</a></li></ul>
             </div>
         </section>
@@ -197,7 +359,7 @@
                             </ul>
                         </form>
                     </section>
-                
+
                     <section>
                         <ul class="contact">
                             <li><h3>Address</h3><span>102, Pristine Square,<br />Wakad, Pune 411057, Maharashtra<br />India</span></li>
@@ -221,7 +383,7 @@
 
     <!-- Footer -->
     <footer id="footer" class="wrapper style1-alt">
-        <div class="inner"><ul class="menu"><li>&copy; All rights reserved.</li><li>Design: HTML5 UP</li></ul></div>
+        <div class="inner"><ul class="menu"><li>&copy; All rights reserved.</li></ul></div>
     </footer>
 
     <!-- Scripts -->
@@ -242,8 +404,8 @@
         for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
         slideIndex++;
         if (slideIndex > slides.length) slideIndex = 1;
-        slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 3000);
+        if (slides[slideIndex - 1]) slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 4000);
     }
     </script>
 
@@ -276,6 +438,7 @@
             }
         } catch (err) {
             alert('Failed to send message. Check console for details.');
+            console.error(err);
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
