@@ -1,57 +1,82 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Revalon Biocare</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<head>
+    <title>Revalon Biocare</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-		<!-- Header -->
-		<header id="header">
-			<a href="index.html" class="title">REVALON Biocare</a>
-			<nav>
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="generic.html" class="active">Product Details</a></li>
-						<!--<li><a href="elements.html">Elements</a></li>-->
-				</ul>
-			</nav>
-		</header>
+    <style>
+        /* Make PDF scroll properly on all devices */
+        .pdf-container {
+            width: 100%;
+            height: 100vh;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 20px;
+        }
 
-		<div id="wrapper">
-			<section id="main" class="wrapper">
-				<div class="inner">
-					<h1 class="major">Product Details</h1>		
+        .pdf-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            overflow: auto !important;
+        }
 
-					<!-- PDF Viewer (iframe) -->
-					<iframe 
-						src="assets/Files/Revalon_Biocare.pdf#toolbar=0" 
-						width="100%" 
-						height="800px"
-						style="margin-top: 30px; border: none;">
-					</iframe>					
-				</div>
-			</section>
-		</div>
+        /* Prevent parent theme from blocking scroll */
+        #main {
+            overflow: visible !important;
+        }
+    </style>
 
-		<footer id="footer" class="wrapper alt">
-			<div class="inner">
-				<ul class="menu">
-					<li>&copy; All rights reserved.</li>
-				</ul>
-			</div>
-		</footer>
+</head>
+<body class="is-preload">
 
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/jquery.scrollex.min.js"></script>
-		<script src="assets/js/jquery.scrolly.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="title">REVALON Biocare</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="generic.html" class="active">Product Details</a></li>
+            </ul>
+        </nav>
+    </header>
 
-	</body>
+    <div id="wrapper">
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <h1 class="major">Product Details</h1>
+
+                <!-- Scrollable PDF Viewer -->
+                <div class="pdf-container">
+                    <iframe 
+                        class="pdf-frame"
+                        src="assets/Files/Revalon_Biocare.pdf#toolbar=0"
+                        allow="autoplay"
+                    ></iframe>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer id="footer" class="wrapper alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; All rights reserved.</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
 </html>
