@@ -8,173 +8,182 @@
 <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
 <style>
-body.is-preload { transition: none; }
-header#header { z-index: 10; position: relative; }
+    body.is-preload { transition: none; }
+          header#header {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              z-index: 100;
+            }
+            body {
+              padding-top: 80px; /* Adjust to header height */
+            }
+    
+    /* ---- FIXED SIDEBAR BACKGROUND ---- */
+    /* This ensures the sidebar matches the page background instead of being black/white */
+    #sidebar {
+      position: fixed;
+      left: 0;
+      top: 80px;
+      width: 220px;
+      height: 100%;
+      background: inherit !important;   /* MATCH PAGE BACKGROUND */
+      padding-top: 40px;
+      box-shadow: none !important;
+      z-index: 1000;
+    }
 
-/* ---- FIXED SIDEBAR BACKGROUND ---- */
-/* This ensures the sidebar matches the page background instead of being black/white */
-#sidebar {
-  position: fixed;
-  left: 0;
-  top: 122px;
-  width: 220px;
-  height: 100%;
-  background: inherit !important;   /* MATCH PAGE BACKGROUND */
-  padding-top: 40px;
-  box-shadow: none !important;
-  z-index: 1000;
-}
-
-/* Make sidebar text readable on light background */
-#sidebar nav ul li a,
-.collapsible,
-.nested li a {
-  color: #fff !important;
-}
-.collapsible::after {
-  border-color: #0aa2c0;
-}
-.collapsible span.collapsible-label {
-  border-color: #0aa2c0;
-}
-
-/* ---- IMAGE SLIDER ---- */
-.slider-wrapper {
-  max-width: 1200px;
-  margin: 24px auto;
-  padding: 12px;
-  position: relative;
-}
-.slider {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  background: #f8fafc;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-.slides {
-  display: flex;
-  transition: transform 0.4s ease;
-}
-.slides img {
-  width: 100%;
-  flex-shrink: 0;
-  border-radius: 10px;
-}
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
-  width: 30px;
-  height: 48px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 20;
-  font-size: 14px;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
-}
-.slider-btn.hidden { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-60%); }
-.prev-btn { left: -60px; }
-.next-btn { right: -60px; }
-@media (max-width: 600px) {
-  .prev-btn { left: -40px; }
-  .next-btn { right: -40px; }
-}
-.dots { text-align: center; margin-top: 14px; }
-.dot {
-  display: inline-block;
-  height: 12px;
-  width: 12px;
-  margin: 0 5px;
-  background-color: #bbb;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.dot.active { background-color: #333; }
-
-/* Sidebar menu layout */
-#sidebar .inner { display: flex; flex-direction: column; }
-#sidebar nav ul { list-style: none; padding: 0; margin: 0; }
-#sidebar nav ul li { margin: 15px 0; }
-
-#sidebar .inner ul { flex: 1 1 auto; }
-
-/* Collapsible sections */
-.collapsible {
-  background: none;
-  cursor: pointer;
-  border: none !important;
-  width: 100%;
-  text-align: left;
-  font-weight: 500;
-  font-size: 1.05rem;
-  margin-bottom: 0;
-  padding: 14px 16px 14px 0;
-  position: relative;
-  transition: background 0.21s;
-  letter-spacing: 0.02em;
-}
-.collapsible span.collapsible-label {
-  display: inline-block;
-  border-bottom: 2px solid #36c1f5;
-  padding-bottom: 2px;
-}
-.collapsible::after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  border-style: solid;
-  border-width: 0 3px 3px 0;
-  transform: translateY(-50%) rotate(45deg);
-  transition: transform 0.28s;
-}
-.collapsible.active::after {
-  transform: translateY(-50%) rotate(135deg);
-}
-
-/* Nested child links */
-.nested.open { display: block; }
-.nested {
-  display: none;
-  padding-left: 10px;
-  background: none;
-  margin: 0;
-}
-.nested li { margin: 6px 0; }
-.nested li a {
-  padding: 9px 8px 9px 24px;
-  display: block;
-  border-radius: 2px;
-  font-weight: 500;
-  background: none !important;
-  color: #fff !important;
-  border-bottom: 1px solid #36c1f5;
-}
-.nested li:last-child a {
-  border-bottom: none;
-}
-.nested li a:hover { background: #d7ecff; color: #ffffff !important; }
-
-/* Push content right */
-#wrapper { margin-left: 220px; transition: margin-left 0.3s; }
-
-/* Mobile */
-@media (max-width: 768px) {
-  #sidebar { display: none; }
-  #wrapper { margin-left: 0; }
-}
+    /* Make sidebar text readable on light background */
+    #sidebar nav ul li a,
+    .collapsible,
+    .nested li a {
+      color: #fff !important;
+    }
+    .collapsible::after {
+      border-color: #0aa2c0;
+    }
+    .collapsible span.collapsible-label {
+      border-color: #0aa2c0;
+    }
+    
+    /* ---- IMAGE SLIDER ---- */
+    .slider-wrapper {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 12px;
+      position: relative;
+    }
+    .slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #f8fafc;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+    .slides img {
+      width: 100%;
+      flex-shrink: 0;
+      border-radius: 10px;
+    }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      border: none;
+      width: 30px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      font-size: 14px;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
+    }
+    .slider-btn.hidden { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-60%); }
+    .prev-btn { left: -60px; }
+    .next-btn { right: -60px; }
+    @media (max-width: 600px) {
+      .prev-btn { left: -40px; }
+      .next-btn { right: -40px; }
+    }
+    .dots { text-align: center; margin-top: 14px; }
+    .dot {
+      display: inline-block;
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .dot.active { background-color: #333; }
+    
+    /* Sidebar menu layout */
+    #sidebar .inner { display: flex; flex-direction: column; }
+    #sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+    #sidebar nav ul li { margin: 15px 0; }
+    
+    #sidebar .inner ul { flex: 1 1 auto; }
+    
+    /* Collapsible sections */
+    .collapsible {
+      background: none;
+      cursor: pointer;
+      border: none !important;
+      width: 100%;
+      text-align: left;
+      font-weight: 500;
+      font-size: 1.05rem;
+      margin-bottom: 0;
+      padding: 14px 16px 14px 0;
+      position: relative;
+      transition: background 0.21s;
+      letter-spacing: 0.02em;
+    }
+    .collapsible span.collapsible-label {
+      display: inline-block;
+      border-bottom: 2px solid #36c1f5;
+      padding-bottom: 2px;
+    }
+    .collapsible::after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-style: solid;
+      border-width: 0 3px 3px 0;
+      transform: translateY(-50%) rotate(45deg);
+      transition: transform 0.28s;
+    }
+    .collapsible.active::after {
+      transform: translateY(-50%) rotate(135deg);
+    }
+    
+    /* Nested child links */
+    .nested.open { display: block; }
+    .nested {
+      display: none;
+      padding-left: 10px;
+      background: none;
+      margin: 0;
+    }
+    .nested li { margin: 6px 0; }
+    .nested li a {
+      padding: 9px 8px 9px 24px;
+      display: block;
+      border-radius: 2px;
+      font-weight: 500;
+      background: none !important;
+      color: #fff !important;
+      border-bottom: 1px solid #36c1f5;
+    }
+    .nested li:last-child a {
+      border-bottom: none;
+    }
+    .nested li a:hover { background: #d7ecff; color: #ffffff !important; }
+    
+    /* Push content right */
+    #wrapper { margin-left: 220px; transition: margin-left 0.3s; }
+    
+    /* Mobile */
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      #wrapper { margin-left: 0; }
+    }
 </style>
 
 </head>
@@ -299,5 +308,6 @@ track.addEventListener("touchend", e => {
 
 </body>
 </html>
+
 
 
