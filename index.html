@@ -8,6 +8,17 @@
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
     <style>
+           /* Freeze header  CSS */
+        header#header {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              z-index: 100;
+            }
+            body {
+              padding-top: 120px; /* Adjust to header height */
+            }
         /* Slideshow CSS */
         .slideshow-container {
             width: 100%;
@@ -676,6 +687,7 @@
 </body>
 
 </html>
+
 
 
 
