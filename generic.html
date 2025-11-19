@@ -1,247 +1,554 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<title>Revalon Biocare — Product Viewer</title>
-<link rel="stylesheet" href="assets/css/main.css" />
-<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <title>REVALON Biocare</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-<style>
-body.is-preload { transition: none; }
-header#header { z-index: 10; position: relative; }
+    <style>
+        /* =============================== */
+        /*   SLIDESHOW (UNCHANGED)        */
+        /* =============================== */
+        .slideshow-container {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            margin: 10px auto 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .slide { width: 100%; height: 100%; display: none; position: absolute; inset: 0; }
+        .slide img { width: 100%; height: 100%; object-fit: contain; }
 
-/* ---- FIXED SIDEBAR BACKGROUND ---- */
-/* This ensures the sidebar matches the page background instead of being black/white */
-#sidebar {
-  position: fixed;
-  left: 0;
-  top: 120px;
-  width: 220px;
-  height: 100%;
-  background: inherit !important;   /* MATCH PAGE BACKGROUND */
-  padding-top: 40px;
-  box-shadow: none !important;
-  z-index: 1000;
-}
+        @media (max-width: 480px) {
+            .slideshow-container { aspect-ratio: 4 / 3; }
+        }
 
-/* Make sidebar text readable on light background */
-#sidebar nav ul li a,
-.collapsible,
-.nested li a {
-  color: #222 !important;
-}
-.collapsible::after {
-  border-color: #0aa2c0;
-}
-.collapsible span.collapsible-label {
-  border-color: #0aa2c0;
-}
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            padding: 12px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.5);
+            user-select: none;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
 
-/* ---- IMAGE SLIDER ---- */
-.slider-wrapper {
-  max-width: 1200px;
-  margin: 24px auto;
-  padding: 12px;
-  position: relative;
-}
-.slider {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  background: #f8fafc;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-.slides {
-  display: flex;
-  transition: transform 0.4s ease;
-}
-.slides img {
-  width: 100%;
-  flex-shrink: 0;
-  border-radius: 10px;
-}
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
-  width: 30px;
-  height: 48px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 20;
-  font-size: 14px;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
-}
-.slider-btn.hidden { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-60%); }
-.prev-btn { left: -60px; }
-.next-btn { right: -60px; }
-@media (max-width: 600px) {
-  .prev-btn { left: -40px; }
-  .next-btn { right: -40px; }
-}
-.dots { text-align: center; margin-top: 14px; }
-.dot {
-  display: inline-block;
-  height: 12px;
-  width: 12px;
-  margin: 0 5px;
-  background-color: #bbb;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.dot.active { background-color: #333; }
+        .dots-container { text-align: center; position: absolute; bottom: 15px; width: 100%; }
+        .dot {
+            cursor: pointer;
+            height: 14px; width: 14px;
+            margin: 0 4px;
+            background-color: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .dot.active { background-color: #6b2fb6; }
 
-/* Sidebar menu layout */
-#sidebar .inner { display: flex; flex-direction: column; }
-#sidebar nav ul { list-style: none; padding: 0; margin: 0; }
-#sidebar nav ul li { margin: 15px 0; }
 
-#sidebar .inner ul { flex: 1 1 auto; }
+        /* =============================== */
+        /*   LEFT SIDEBAR (UPDATED)       */
+        /* =============================== */
 
-/* Collapsible sections */
-.collapsible {
-  background: none;
-  cursor: pointer;
-  border: none !important;
-  width: 100%;
-  text-align: left;
-  font-weight: 500;
-  font-size: 1.05rem;
-  margin-bottom: 0;
-  padding: 14px 16px 14px 0;
-  position: relative;
-  transition: background 0.21s;
-  letter-spacing: 0.02em;
-}
-.collapsible span.collapsible-label {
-  display: inline-block;
-  border-bottom: 2px solid #36c1f5;
-  padding-bottom: 2px;
-}
-.collapsible::after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  border-style: solid;
-  border-width: 0 3px 3px 0;
-  transform: translateY(-50%) rotate(45deg);
-  transition: transform 0.28s;
-}
-.collapsible.active::after {
-  transform: translateY(-50%) rotate(135deg);
-}
+        #sidebar {
+            margin-top: 120px;
+        }
 
-/* Nested child links */
-.nested.open { display: block; }
-.nested {
-  display: none;
-  padding-left: 10px;
-  background: none;
-  margin: 0;
-}
-.nested li { margin: 6px 0; }
-.nested li a {
-  padding: 9px 8px 9px 24px;
-  display: block;
-  border-radius: 2px;
-  font-weight: 500;
-  background: none !important;
-  border-bottom: 1px solid #36c1f5;
-}
-.nested li:last-child a {
-  border-bottom: none;
-}
-.nested li a:hover { background: #d7ecff; color: #000 !important; }
+        #sidebar .inner {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            border-radius: 10px;
+            padding: 25px 20px;
+            backdrop-filter: blur(6px);
+        }
 
-/* Push content right */
-#wrapper { margin-left: 220px; transition: margin-left 0.3s; }
+        #sidebar nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-/* Mobile */
-@media (max-width: 768px) {
-  #sidebar { display: none; }
-  #wrapper { margin-left: 0; }
-}
-</style>
+        #sidebar nav ul li a {
+            display: block;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: 0.25s ease-in-out;
+        }
 
+        #sidebar nav ul li a:hover {
+            background: rgba(107,47,182,0.35);
+            border-color: rgba(107,47,182,0.55);
+            color: #fff;
+            box-shadow: 0 0 8px rgba(107,47,182,0.5);
+        }
+
+        /* Active section highlight */
+        #sidebar nav ul li a.active {
+            background: rgba(107,47,182,0.55);
+            border-color: rgba(107,47,182,0.8);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(107,47,182,0.75);
+        }
+
+
+        /* =============================== */
+        /*  ALL YOUR ORIGINAL CSS BELOW   */
+        /* =============================== */
+
+        .company-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, auto);
+            gap: 28px;
+            align-items: start;
+            margin-top: 12px;
+        }
+
+        .company-info-grid .info-card {
+            position: relative;
+            padding: 26px 18px 48px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.04);
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+        }
+
+        .company-info-grid .info-card h3 {
+            font-size: 1rem;
+            margin: 6px 0 8px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+        }
+        .company-info-grid .info-card p {
+            margin: 0;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.85);
+            font-weight: 500;
+        }
+        .company-info-grid .info-icon {
+            position: absolute;
+            left: 50%; transform: translateX(-50%);
+            bottom: -22px;
+            width: 75px; height: 75px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex; align-items: center; justify-content: center;
+            color: #6b2fb6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            border: 4px solid rgba(255,255,255,0.06);
+            font-size: 1.2rem;
+        }
+
+        .empty-cell { background: transparent; border: none; box-shadow: none; padding: 0; min-height: 0; }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 18px;
+        }
+
+        .feature {
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 6px 14px rgba(20,30,60,0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #222;
+        }
+
+        .feature .image {
+            width:100%; height:160px; overflow:hidden;
+            border-radius:6px; background:#fafafa;
+        }
+        .feature .image img { width:100%; height:100%; object-fit:contain; }
+
+        .feature h3 { margin: 0; font-size: 1.05rem; color: #111; }
+        .feature .short { margin:0; font-weight:600; color:#1061d6; }
+        .feature p { margin:0; color:#444; font-size:0.95rem; }
+
+        @media (max-width: 900px){ .features { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px){ .company-info-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 560px){
+            .features { grid-template-columns: 1fr; }
+            .feature .image{ height:220px; }
+            .company-info-grid { grid-template-columns: 1fr; }
+            .company-info-grid .info-icon { bottom:-18px; width:48px; height:48px; }
+        }
+
+        .company-intro { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+        .company-intro .intro-image img { max-width:300px; width:100%; height:auto; border-radius:8px; }
+        .company-intro .intro-text { flex:1; }
+        @media (max-width: 768px){ .company-intro { flex-direction: column; text-align: center; } }
+    </style>
 </head>
+
+
 <body class="is-preload">
 
+<!-- HEADER -->
 <header id="header">
-  <a href="index.html" class="title">REVALON Biocare</a>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="generic.html" class="active">Product Details</a></li>
-    </ul>
-  </nav>
+    <a href="index.html" class="title">Revalon Biocare</a>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="generic.html" class="active">Product Details</a></li>
+        </ul>
+    </nav>
 </header>
 
-<section id="sidebar">
-  <div class="inner">
-    <nav>
-      <ul>
-        <li>
-          <button class="collapsible"><span class="collapsible-label">Product Certificate</span></button>
-          <ul class="nested">
-            <li><a href="assets/Files/Analysis_Cert/ESOGRED_Cert_Analysis.PDF" target="_blank">Esogred</a></li>
-            <li><a href="assets/Files/Analysis_Cert/Fluqik_Cert_Analysis.pdf" target="_blank">Fluqik</a></li>
-            <li><a href="assets/Files/Analysis_Cert/VitriD3_Cert_Analysis.PDF" target="_blank">Vitri D3</a></li>
-            <li><a href="assets/Files/Analysis_Cert/Argivion_Cert_Analysis.PDF" target="_blank">Argivion</a></li>
-            <li><a href="assets/Files/Analysis_Cert/Luprest_Cert_Analysis.pdf" target="_blank">Luprest</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</section>
 
-<div id="wrapper">
-  <section id="main" class="wrapper">
-    <div class="inner">
-      <h1 class="major">Product Details</h1>
+<!-- SLIDESHOW HTML -->
+<div class="slideshow-container">
+    <div class="slide fade"><img src="images/sleep1.png"></div>
+    <div class="slide fade"><img src="images/sleep2.png"></div>
+    <div class="slide fade"><img src="images/sleep3.png"></div>
+    <div class="slide fade"><img src="images/sleep4.png"></div>
+    <div class="slide fade"><img src="images/sleep5.png"></div>
 
-      <div class="slider-wrapper">
-        <div class="slider">
-          <div class="slides" id="slideTrack">
-            <img src="assets/Files/RevalonBiocare/Revalon_Biocare-images-0.jpg">
-            <img src="assets/Files/RevalonBiocare/Revalon_Biocare-images-1.jpg">
-            <img src="assets/Files/RevalonBiocare/Revalon_Biocare-images-2.jpg">
-            <img src="assets/Files/RevalonBiocare/Revalon_Biocare-images-3.jpg">
-            <img src="assets/Files/RevalonBiocare/Revalon_Biocare-images-4.jpg">
-            <img src="assets/Files/RevalonBiocare/Revalon_Biocare-images-5.jpg">
-            <img src="assets/Files/RevalonBiocare/Revalon_Biocare-images-6.jpg">
-            <img src="assets/Files/RevalonBiocare/Revalon_Biocare-images-7.jpg">
-          </div>
-          <button class="slider-btn prev-btn" id="prevBtn">◀</button>
-          <button class="slider-btn next-btn" id="nextBtn">▶</button>
-        </div>
-        <div class="dots" id="dots"></div>
-      </div>
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
+
+    <div class="dots-container">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span>
     </div>
-  </section>
 </div>
 
-<footer id="footer" class="wrapper alt">
-  <div class="inner">
-    <ul class="menu">
-      <li>&copy; All rights reserved.</li>
-    </ul>
-  </div>
+<script>
+let slideIndex = 0;
+let slides = document.getElementsByClassName("slide");
+let dots = document.getElementsByClassName("dot");
+let slideTimer;
+
+function showSlides(n) {
+    if (n !== undefined) { slideIndex = n; clearTimeout(slideTimer); }
+    if (slideIndex >= slides.length) slideIndex = 0;
+    if (slideIndex < 0) slideIndex = slides.length - 1;
+
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        dots[i].classList.remove("active");
+    }
+
+    slides[slideIndex].style.display = "block";
+    dots[slideIndex].classList.add("active");
+
+    slideIndex++;
+    slideTimer = setTimeout(showSlides, 8000);
+}
+showSlides();
+
+document.querySelector(".prev").addEventListener("click", () => { slideIndex -= 2; showSlides(); });
+document.querySelector(".next").addEventListener("click", () => { showSlides(); });
+for (let i = 0; i < dots.length; i++) dots[i].addEventListener("click", () => showSlides(i));
+</script>
+
+
+<!-- UPDATED SIDEBAR -->
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><a href="#intro" class="active">Welcome</a></li>
+                <li><a href="#one">Who we are</a></li>
+                <li><a href="#two">Product Portfolio</a></li>
+                <li><a href="#three">Get in touch</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
+
+<!-- MAIN CONTENT WRAPPER -->
+<div id="wrapper">
+
+    <!-- INTRO SECTION -->
+    <section id="intro" class="wrapper style1 fullscreen fade-up">
+        <div class="inner company-intro">
+            <div class="intro-image">
+                <img src="images/revalonbiocare.png" alt="REVALON Biocare" />
+            </div>
+            <div class="intro-text">
+                <h1>Welcome To REVALON Biocare</h1>
+                <p>
+                    We are a young company working in <strong>Pharmaceutical Medicines</strong> where innovation meets integrity in healthcare.
+                    Guided by our tagline <strong>Revival to Resilience</strong>, we deliver high-quality, evidence-based pharmaceutical solutions.
+                </p>
+            </div>
+        </div>
+
+        <div class="inner">
+            <h2>Company Information</h2>
+            <div class="company-info-grid">
+
+                <div class="info-card">
+                    <h3>GST Number</h3>
+                    <p>27ABLFR3528C1Z7</p>
+                    <div class="info-icon"><span class="fa fa-file-invoice"></span></div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Business Type</h3>
+                    <p>Pharmaceutical Company</p>
+                    <div class="info-icon"><span class="fa fa-briefcase"></span></div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Year Of Establishment</h3>
+                    <p>2025</p>
+                    <div class="info-icon"><span class="fa fa-calendar"></span></div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Number Of Employees</h3>
+                    <p>10</p>
+                    <div class="info-icon"><span class="fa fa-users"></span></div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Number Of Products</h3>
+                    <p>5</p>
+                    <div class="info-icon"><span class="fa fa-box"></span></div>
+                </div>
+
+                <div class="empty-cell"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- WHO WE ARE -->
+    <section id="one" class="wrapper style2 spotlights">
+        <section>
+            <a href="#" class="image"><img src="images/sachinbidwai.jpeg" alt=""></a>
+            <div class="content"><div class="inner">
+                <h2>Dr Sachin Bidwai</h2>
+                <span>
+                    <b>Consultant Physician | Internal Medicine Specialist</b> <br>
+                    B.A.M.S | D.G.M | F.C.C.S | Advanced Certificate in Diabetes Mellitus<br><br>      
+                    Dr. Sachin Bidwai is a highly accomplished Physician and the visionary founder of Revalon Biocare...
+                </span>
+            </div></div>
+        </section>
+
+        <section>
+            <a href="#" class="image"><img src="images/pathak.png" alt=""></a>
+            <div class="content"><div class="inner">
+                <h2>Mr. Durganand Pathak</h2>
+                <span>
+                    <b>Clinical Research & Pharmacovigilance Specialist</b><br>
+                    B.Sc | D.Pharm | B.Pharm | M.Pharm<br><br>
+                    Mr. Pathak is a highly skilled pharmaceutical professional...
+                </span>
+            </div></div>
+        </section>
+
+        <section>
+            <a href="#" class="image"><img src="images/Sushama.png" alt=""></a>
+            <div class="content"><div class="inner">
+                <h2>Mrs Sushama Delmade</h2>
+                <span>
+                    <b>Financial Strategy & Growth Partner</b><br>
+                    Bachlors in Computer Science (B.Sc)<br><br>
+                    Mrs. Delmade is a dedicated financial planning professional...
+                </span>
+            </div></div>
+        </section>
+    </section>
+
+
+    <!-- PRODUCT PORTFOLIO -->
+    <section id="two" class="wrapper style3 fade-up">
+        <div class="inner">
+            <h2>Product Portfolio</h2>
+            <p class="lead">We restore health and empower lives with trusted, effective, and accessible therapies.</p>
+
+            <div class="features">
+
+                <article class="feature">
+                    <a href="#" class="image"><img src="images/esogreddsr.png"></a>
+                    <h3 style="text-align:center;">Esogred DSR</h3>
+                    <p class="short">Esomeprazole 40mg & Domperidone 30mg</p>
+                    <p>Evidence shows that combining domperidone with PPIs improves GERD symptom relief.</p>
+                </article>
+
+                <article class="feature">
+                    <a href="#" class="image"><img src="images/fluqik.png"></a>
+                    <h3 style="text-align:center;">Fluqik</h3>
+                    <p class="short">Oseltamivir 75mg</p>
+                    <p>Meta-analysis shows significant reduction in fever duration and hospitalization.</p>
+                </article>
+
+                <article class="feature">
+                    <a href="#" class="image"><img src="images/vitrid3.png"></a>
+                    <h3 style="text-align:center;">VitriD3</h3>
+                    <p class="short">Cholecalciferol 60,000 IU Nano Shots</p>
+                    <p>Vitamin D supplementation supports metabolic and hypertension improvement.</p>
+                </article>
+
+                <article class="feature">
+                    <a href="#" class="image"><img src="images/argivon.png"></a>
+                    <h3 style="text-align:center;">Argivon</h3>
+                    <p class="short">L-Arginine 5gm + Zinc + Folic Acid</p>
+                    <p>Shown to improve vasculogenic erectile dysfunction and support blood flow.</p>
+                </article>
+
+                <article class="feature">
+                    <a href="#" class="image"><img src="images/luprest.png"></a>
+                    <h3 style="text-align:center;">Luprest</h3>
+                    <p class="short">Dydrogesterone 10mg</p>
+                    <p>Reduces dysmenorrhea and lowers miscarriage risk in threatened abortion.</p>
+                </article>
+
+                <article class="feature">
+                    <a href="#" class="image"><img src="images/comingsoon.png"></a>
+                    <h3 style="text-align:center;">More coming soon</h3>
+                    <p class="short">New products & therapies</p>
+                    <p>We are continuously expanding with scientifically backed therapies.</p>
+                </article>
+            </div>
+
+            <ul class="actions"><li><a href="generic.html" class="button">Learn more</a></li></ul>
+        </div>
+    </section>
+
+
+    <!-- CONTACT FORM -->
+    <section id="three" class="wrapper style1 fade-up">
+        <div class="inner">
+            <h2>Get in touch</h2>
+
+            <div class="split style1">
+                <section>
+                    <form id="contactForm" action="https://formspree.io/f/mjkjqojr" method="POST">
+                        <div class="fields">
+
+                            <div class="field half">
+                                <label for="name">Name*</label>
+                                <input type="text" name="name" id="name" required />
+                            </div>
+
+                            <div class="field half">
+                                <label for="email">Email*</label>
+                                <input type="email" name="email" id="email" required />
+                            </div>
+
+                            <div class="field half">
+                                <label for="mobilenumber">Mobile Number*</label>
+                                <input type="text" name="mobilenumber" id="mobilenumber" required />
+                            </div>
+
+                            <div class="field">
+                                <label for="message">Message* (max 5000 characters)</label>
+                                <textarea name="message" id="message" rows="5" maxlength="5000" required></textarea>
+                                <div id="charCount" style="font-size:0.9em; color:#aaa;">0 / 5000</div>
+                            </div>
+
+                        </div>
+
+                        <ul class="actions">
+                            <li><button type="submit" id="submitBtn" class="button submit" disabled>Send Message</button></li>
+                        </ul>
+
+                        <div id="formStatus" style="margin-top:10px;"></div>
+                    </form>
+                </section>
+
+                <script>
+                const form = document.getElementById('contactForm');
+                const submitBtn = document.getElementById('submitBtn');
+                const fields = Array.from(form.querySelectorAll('input[required], textarea[required]'));
+                const messageField = document.getElementById('message');
+                const charCount = document.getElementById('charCount');
+
+                function checkFields() {
+                    submitBtn.disabled = !fields.every(field => field.value.trim() !== '');
+                }
+
+                function updateCharCount() {
+                    charCount.textContent = `${messageField.value.length} / 5000`;
+                }
+
+                fields.forEach(field => field.addEventListener('input', checkFields));
+                messageField.addEventListener('input', updateCharCount);
+
+                checkFields(); updateCharCount();
+
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const statusDiv = document.getElementById('formStatus');
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: form.method,
+                        body: formData,
+                        headers: { 'Accept':'application/json' }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            statusDiv.textContent = "Thank you! Your message was sent.";
+                            statusDiv.style.color = "green";
+                            form.reset();
+                            checkFields();
+                            updateCharCount();
+                        } else {
+                            statusDiv.textContent = "Sorry, there was a problem."; 
+                            statusDiv.style.color = "red";
+                        }
+                    })
+                    .catch(() => {
+                        statusDiv.textContent = "Network error.";
+                        statusDiv.style.color = "red";
+                    });
+                });
+                </script>
+
+
+                <section>
+                    <ul class="contact">
+                        <li><h3>Address</h3><span>102, Pristine Square,<br />Wakad, Pune 411057, Maharashtra<br />India</span></li>
+                        <li><h3>Email</h3><a href="#">revalonbiocare@gmail.com</a></li>
+                        <li><h3>Phone</h3><span>+91-9673317600<br />+91-9730736936</span></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </section>
+
+</div><!-- wrapper -->
+
+
+<!-- FOOTER -->
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner"><ul class="menu"><li>&copy; All rights reserved.</li></ul></div>
 </footer>
 
+
+<!-- SCRIPTS -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/jquery.scrollex.min.js"></script>
 <script src="assets/js/jquery.scrolly.min.js"></script>
@@ -249,52 +556,6 @@ header#header { z-index: 10; position: relative; }
 <script src="assets/js/breakpoints.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
-
-<script>
-document.querySelectorAll(".collapsible").forEach(btn => {
-  btn.addEventListener("click", function() {
-    this.classList.toggle("active");
-    this.nextElementSibling.classList.toggle("open");
-  });
-});
-</script>
-
-<script>
-const slides = document.querySelectorAll("#slideTrack img");
-const track = document.getElementById("slideTrack");
-const prev = document.getElementById("prevBtn");
-const next = document.getElementById("nextBtn");
-const dotsContainer = document.getElementById("dots");
-
-let index = 0;
-slides.forEach((_, i) => {
-  const dot = document.createElement("span");
-  dot.classList.add("dot");
-  if (i === 0) dot.classList.add("active");
-  dot.addEventListener("click", () => goToSlide(i));
-  dotsContainer.appendChild(dot);
-});
-const dots = document.querySelectorAll(".dot");
-
-function updateSlider() {
-  track.style.transform = `translateX(-${index * 100}%)`;
-  dots.forEach(dot => dot.classList.remove("active"));
-  dots[index].classList.add("active");
-}
-function nextSlide() { index = (index + 1) % slides.length; updateSlider(); }
-function prevSlide() { index = (index - 1 + slides.length) % slides.length; updateSlider(); }
-function goToSlide(i) { index = i; updateSlider(); }
-next.addEventListener("click", nextSlide);
-prev.addEventListener("click", prevSlide);
-
-let startX = 0;
-track.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-track.addEventListener("touchend", e => {
-  const diff = e.changedTouches[0].clientX - startX;
-  if (diff < -50) nextSlide();
-  if (diff > 50) prevSlide();
-});
-</script>
 
 </body>
 </html>
