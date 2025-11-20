@@ -7,6 +7,22 @@
 <link rel="stylesheet" href="assets/css/main.css" />
 <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
+ <!-- this code make the headers always stay allinged -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const header = document.getElementById("header");
+            const headerHeight = header.offsetHeight;
+
+            // Set padding for body (to prevent overlap)
+            document.body.style.paddingTop = headerHeight + "px";
+
+            // Align sidebar
+            const sidebar = document.getElementById("sidebar");
+            sidebar.style.marginTop = headerHeight + 20 + "px"; // extra spacing            
+
+        });
+    </script>
+
 <style>
     body.is-preload { transition: none; }
           header#header {
@@ -17,7 +33,7 @@
               z-index: 100;
             }
             body {
-              padding-top: 80px; /* Adjust to header height */
+              padding-top: 122px; /* Adjust to header height */
             }
 
             h1.major {
@@ -29,8 +45,7 @@
     #sidebar {
       position: fixed;
       left: 0;
-      top: 122px;
-      width: 220px;
+      width: 390px;
       height: 100%;
       background: inherit !important;   /* MATCH PAGE BACKGROUND */
       padding-top: 40px;
@@ -43,9 +58,6 @@
     .collapsible,
     .nested li a {
       color: #fff !important;
-    }
-    .collapsible::after {
-      border-color: #0aa2c0;
     }
     .collapsible span.collapsible-label {
       border-color: #0aa2c0;
@@ -94,11 +106,11 @@
       transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
     }
     .slider-btn.hidden { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-60%); }
-    .prev-btn { left: -60px; }
-    .next-btn { right: -60px; }
+    .prev-btn { left: 5px; }
+    .next-btn { right: 5px; }
     @media (max-width: 600px) {
-      .prev-btn { left: -40px; }
-      .next-btn { right: -40px; }
+      .prev-btn { left: 25px; }
+      .next-btn { right: 40px; }
     }
     .dots { text-align: center; margin-top: 14px; }
     .dot {
@@ -155,6 +167,7 @@
       border-width: 0 3px 3px 0;
       transform: translateY(-50%) rotate(45deg);
       transition: transform 0.28s;
+      border-color: #0aa2c0;
     }
     .collapsible.active::after {
       transform: translateY(-50%) rotate(135deg);
@@ -229,7 +242,7 @@
     /* Bullet separator */
     .pdf-horizontal li::before {
       content: "- ";
-      position: centered vertically;
+      position: middle;
       left: 0;
       color: #36c1f5;
       font-size: 20px;
@@ -256,6 +269,17 @@
       }
     }
 
+    /* Footer follows same margin */
+    #footer {
+      margin-left: 300px;
+      background-color: #312450
+    } 
+    #intro {
+    background: #312450
+    }
+    #one {
+      background: #312450
+    }
 </style>
 
 </head>
@@ -291,6 +315,7 @@
     </nav>
   </div>
 </section>
+
 <div id="wrapper">
 
   <!-- PRODUCT DETAILS -->
@@ -339,11 +364,6 @@
   </section>
 
 </div> <!-- END wrapper -->
-
-
-
-
-
 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/jquery.scrollex.min.js"></script>
@@ -399,10 +419,14 @@ document.querySelectorAll(".collapsible").forEach(btn => {
     });
     </script>
 
-    <!-- Footer -->
-    <footer id="footer" class="wrapper style1-alt">
-        <div class="inner"><ul class="menu"><li>&copy; All rights reserved.</li></ul></div>
-    </footer>
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner"><ul class="menu"><li>&copy; All rights reserved.</li></ul></div>
+</footer>
 
 </body>
 </html>
+
+
+
+
+
