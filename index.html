@@ -293,26 +293,18 @@
             padding-top: 40px;        /* aligns top spacing with intro */
         }
 
-        /*
-         Fix: use a mobile-only breakpoint so tablets (portrait + landscape),
-         including iPad/iPad Pro, keep the sidebar visible.
-         Previously the media query used max-width: 1024px which matched
-         many tablets in portrait and hid the sidebar. That made Android tablets
-         show/hide depending on orientation and caused iPad Pro inconsistencies.
-         Changing the breakpoint to max-width: 767px (typical phone widths)
-         ensures only phones hide/stack the sidebar.
-        */
-        @media (max-width: 767px) {
+        /* On narrow mobile screens stack sidebar above content */
+        @media (max-width: 1024px) {
             #sidebar {
                 position: relative;
                 width: 100%;
                 height: auto;
-                display: block;
+                display: none !important;
             }
             #wrapper {
                 margin-left: 0;
             }
-            /* ensure header remains fixed above everything on very small screens */
+            /* ensure header remains fixed above everything */
             header#header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
         }
     </style>
